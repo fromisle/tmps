@@ -1,10 +1,18 @@
 // main.js
+<script src="firebase-config.js"></script>
+
+// main.js
+
+// Check if Firebase is initialized correctly
+console.log("Firebase initialized:", firebase.apps.length > 0);
 
 // Handle team creation
 document.getElementById('create-team-form').addEventListener('submit', (e) => {
     e.preventDefault();
     const teamName = document.getElementById('team-name').value;
     const teamSize = parseInt(document.getElementById('team-size').value);
+
+    console.log("Creating team:", teamName, teamSize);
 
     db.collection('teams').doc(teamName).set({
         teamSize: teamSize,
@@ -14,6 +22,7 @@ document.getElementById('create-team-form').addEventListener('submit', (e) => {
         alert("Team created successfully!");
         document.getElementById('team-creation').style.display = 'none';
         document.getElementById('join-team').style.display = 'block';
+        console.log("Team created and UI updated.");
     })
     .catch((error) => {
         console.error("Error creating team: ", error);
@@ -28,6 +37,8 @@ document.getElementById('join-team-form').addEventListener('submit', (e) => {
     const email = document.getElementById('email').value;
     const phone = document.getElementById('phone').value;
 
+    console.log("Joining team:", joinTeamName, memberName, email, phone);
+
     const memberData = {
         name: memberName,
         email: email,
@@ -39,16 +50,12 @@ document.getElementById('join-team-form').addEventListener('submit', (e) => {
             let members = doc.data().members;
             members.push(memberData);
 
-            if (members.length === doc.data().teamSize) {
-                // Send email to all members (implementation needed)
-                alert("All members have joined. Information will be sent via email.");
-            }
-
             db.collection('teams').doc(joinTeamName).update({
                 members: members
             })
             .then(() => {
                 alert("Successfully joined the team!");
+                console.log("Team joined and Firestore updated.");
             })
             .catch((error) => {
                 console.error("Error joining team: ", error);
