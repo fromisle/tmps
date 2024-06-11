@@ -1,7 +1,4 @@
 // main.js
-<script src="firebase-config.js"></script>
-
-// main.js
 
 // Check if Firebase is initialized correctly
 console.log("Firebase initialized:", firebase.apps.length > 0);
