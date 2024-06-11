@@ -60,3 +60,26 @@ document.getElementById('join-team-form').addEventListener('submit', (e) => {
         console.error("Error getting team: ", error);
     });
 });
+
+
+// Initialize EmailJS in firebase-config.js
+(function() {
+    emailjs.init("YOUR_USER_ID");
+})();
+
+// Modify main.js to send email when team is full
+if (members.length === doc.data().teamSize) {
+    // Prepare email content
+    const templateParams = {
+        team_name: joinTeamName,
+        members: JSON.stringify(members, null, 2)
+    };
+
+    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+        .then((response) => {
+            console.log('SUCCESS!', response.status, response.text);
+            alert("All members have joined. Information has been sent via email.");
+        }, (error) => {
+            console.log('FAILED...', error);
+        });
+}
