@@ -9,12 +9,18 @@
 
 <body>
     <h1>Team Contact Sharing</h1>
-    <div id="team-creation">
+    <div class="container">
         <h2>Create Team</h2>
         <form id="create-team-form">
-            <input type="text" id="team-name" placeholder="Team Name" required>
-            <input type="number" id="team-size" placeholder="Number of Members" required>
-            <button type="submit">Create Team</button>
+            <div class="inputbox">
+                <input type="text" id="team-name" placeholder="Team Name" required>
+            </div> 
+            <div class="inputbox">
+                <input type="number" id="team-size" placeholder="Number of Members" required>
+            </div>
+            <div class="inputbox">
+                <button type="submit">Create Team</button>
+            </div>
         </form>
     </div>
 
@@ -28,9 +34,6 @@
             <button type="submit">Share Your Contact</button>
         </form>
     </div>
-
-    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
     <script src="firebase-config.js"></script>
     <script src="main.js"></script>
     <script type="module">
