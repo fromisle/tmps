@@ -1,27 +1,4 @@
 
-// Handle team creation
-document.getElementById('create-team-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const teamName = document.getElementById('team-name').value;
-    const teamSize = parseInt(document.getElementById('team-size').value);
-
-    console.log("Creating team:", teamName, teamSize);
-
-    db.collection('teams').doc(teamName).set({
-        teamSize: teamSize,
-        members: []
-    })
-    .then(() => {
-        alert("Team created successfully!");
-        document.getElementById('team-creation').style.display = 'none';
-        document.getElementById('join-team').style.display = 'block';
-        console.log("Team created and UI updated.");
-    })
-    .catch((error) => {
-        console.error("Error creating team: ", error);
-    });
-});
-
 // Handle team joining
 document.getElementById('join-team-form').addEventListener('submit', (e) => {
     e.preventDefault();
