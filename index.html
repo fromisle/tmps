@@ -46,6 +46,7 @@
         const firebaseConfig = {
             apiKey: "AIzaSyDGiZREuXUhfTmWqGLhLGEFEZmoPnoRVPk",
             authDomain: "ui-design-programming.firebaseapp.com",
+            databaseURL: "https://ui-design-programming-default-rtdb.asia-southeast1.firebasedatabase.app",
             projectId: "ui-design-programming",
             storageBucket: "ui-design-programming.appspot.com",
             messagingSenderId: "815344675056",
@@ -59,13 +60,13 @@
 
         document.getElementById('create-team-form').addEventListener('click', function (e) {
             e.preventDefault();
-            set(ref(db, 'team/' + document.getElementById("team-name").value),
-                {
-                    teamName: document.getElementById("team-name").value,
-                    teamSize: document.getElementById('team-size').value
 
-                });
-            alert("Team created successfully!")
+            const teamname = document.getElementById("team-name").value;
+            const teamsize = document.getElementById('team-size').value;
+
+            const teamRef = ref(db, 'team/' + teamname);
+            // const newEntryKey = push(child(teamRef, 'entries')).key;
+            // const updates = {};
         })
     </script>
     </body>

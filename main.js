@@ -1,4 +1,3 @@
-
 // Handle team joining
 document.getElementById('join-team-form').addEventListener('submit', (e) => {
     e.preventDefault();
@@ -23,13 +22,13 @@ document.getElementById('join-team-form').addEventListener('submit', (e) => {
             db.collection('teams').doc(joinTeamName).update({
                 members: members
             })
-            .then(() => {
-                alert("Successfully joined the team!");
-                console.log("Team joined and Firestore updated.");
-            })
-            .catch((error) => {
-                console.error("Error joining team: ", error);
-            });
+                .then(() => {
+                    alert("Successfully joined the team!");
+                    console.log("Team joined and Firestore updated.");
+                })
+                .catch((error) => {
+                    console.error("Error joining team: ", error);
+                });
         } else {
             alert("No such team found!");
         }
