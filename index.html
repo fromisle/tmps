@@ -19,7 +19,7 @@
                 <input type="number" id="team-size" placeholder="Number of Members" required>
             </div>
             <div class="inputbox">
-                <button type="submit">Create Team</button>
+                <button type="submit" id="create-team-button">Create Team</button>
             </div>
         </form>
     </div>
@@ -58,16 +58,28 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        document.getElementById('create-team-form').addEventListener('click', function (e) {
+        document.getElementById('create-team-button').addEventListener('click', function (e) {
             e.preventDefault();
 
             const teamname = document.getElementById("team-name").value;
             const teamsize = document.getElementById('team-size').value;
 
             const teamRef = ref(db, 'team/' + teamname);
-            // const newEntryKey = push(child(teamRef, 'entries')).key;
-            // const updates = {};
-        })
+            const newEntryKey = push(child(teamRef, 'entries')).key;
+            const updates = {};
+            updates['user/' + teamname + '/entries/' + newEntryKey] = {
+                teamname: teamname,
+                teamsize: teamsize
+            };
+
+            update(ref(db), updates)
+                .then(() => {
+                    alert("Data added successfully!");
+                })
+                .catch((error) => {
+                    console.error("Error updating data: ", error);
+                });
+            });
     </script>
     </body>
 
