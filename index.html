@@ -1,36 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Team Contact Sharing</title>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-      
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-          apiKey: "AIzaSyDGiZREuXUhfTmWqGLhLGEFEZmoPnoRVPk",
-          authDomain: "ui-design-programming.firebaseapp.com",
-          projectId: "ui-design-programming",
-          storageBucket: "ui-design-programming.appspot.com",
-          messagingSenderId: "815344675056",
-          appId: "1:815344675056:web:903c11bc12fd55823efa35",
-          measurementId: "G-ZZBZTBKPHN"
-        };
-      
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-      </script>
 
+<body>
     <h1>Team Contact Sharing</h1>
     <div id="team-creation">
         <h2>Create Team</h2>
@@ -40,22 +17,55 @@
             <button type="submit">Create Team</button>
         </form>
     </div>
-    
-    <div id="join-team" style="display: none;">
-        <h2>Join Team</h2>
+
+    <div id="join-team">
+        <h2>Share Contact</h2>
         <form id="join-team-form">
             <input type="text" id="join-team-name" placeholder="Team Name" required>
             <input type="text" id="member-name" placeholder="Your Name" required>
             <input type="email" id="email" placeholder="Email Address" required>
             <input type="text" id="phone" placeholder="Phone Number" required>
-            <button type="submit">Join Team</button>
+            <button type="submit">Share Your Contact</button>
         </form>
     </div>
-    
+
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-firestore.js"></script>
     <script src="firebase-config.js"></script>
     <script src="main.js"></script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getDatabse, ref, set, get, child } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyDGiZREuXUhfTmWqGLhLGEFEZmoPnoRVPk",
+            authDomain: "ui-design-programming.firebaseapp.com",
+            projectId: "ui-design-programming",
+            storageBucket: "ui-design-programming.appspot.com",
+            messagingSenderId: "815344675056",
+            appId: "1:815344675056:web:903c11bc12fd55823efa35",
+            measurementId: "G-ZZBZTBKPHN"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabse(app);
+
+        document.getElementById('create-team-form').addEventListener('click', function (e) {
+            e.preventDefault();
+            set(ref(db, 'team/' + document.getElementById("team-name").value),
+                {
+                    teamName: document.getElementById("team-name").value,
+                    teamSize: parseInt(document.getElementById('team-size').value)
+
+                });
+            alert("Team created successfully!")
+        })
+    </script>
     <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
 </body>
+
 </html>
